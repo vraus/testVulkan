@@ -6,6 +6,7 @@
 namespace vraus_VulkanEngine {
 
 	FirstApp::FirstApp() {
+		loadModels();
 		createPipelineLayout();
 		createPipeline();
 		createCommandBuffers();
@@ -22,6 +23,18 @@ namespace vraus_VulkanEngine {
 		}
 		vkDeviceWaitIdle(device.device()); // To block the CPU until all GPU operations are completed. We can then safely clean up all resources.
 	}
+
+	void FirstApp::loadModels()
+	{
+		std::vector<Model::Vertex> vertices{
+			{{0.0f, -0.5f}},
+			{{0.5f, 0.5f}},
+			{{-0.5f, 0.5f}}
+		};
+
+		model = std::make_unique<Model>(device, vertices);
+	}
+
 	void FirstApp::createPipelineLayout()
 	{
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
@@ -36,6 +49,7 @@ namespace vraus_VulkanEngine {
 		}
 
 	}
+
 	void FirstApp::createPipeline()
 	{
 		// It's important to use the swapChain width and height as it doesn't necessarly match the window's
@@ -49,6 +63,7 @@ namespace vraus_VulkanEngine {
 			pipelineConfig
 		);
 	}
+
 	void FirstApp::createCommandBuffers()
 	{
 		commandBuffers.resize(swapChain.imageCount());
@@ -89,7 +104,8 @@ namespace vraus_VulkanEngine {
 			vkCmdBeginRenderPass(commandBuffers[i], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
 
 			pipeline->bind(commandBuffers[i]);
-			vkCmdDraw(commandBuffers[i], 3, 1, 0, 0); // Records a draw command to draw 3 vertices in only 1 instance. Multiple instances can be used to render particles
+			model->bind(commandBuffers[i]);
+			model->draw(commandBuffers[i]);
 
 			vkCmdEndRenderPass(commandBuffers[i]);
 			if (vkEndCommandBuffer(commandBuffers[i]) != VK_SUCCESS) {
@@ -97,6 +113,7 @@ namespace vraus_VulkanEngine {
 			}
 		}
 	}
+
 	void FirstApp::drawFrame()
 	{
 		uint32_t imageIndex;

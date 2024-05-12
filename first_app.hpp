@@ -4,6 +4,7 @@
 #include "pipeline.hpp"
 #include "swapChain.hpp"
 #include "device.hpp"
+#include "model.hpp"
 
 #include <memory>
 #include <vector>
@@ -22,6 +23,7 @@ namespace vraus_VulkanEngine {
 
 		void run();
 	private:
+		void loadModels();
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
@@ -33,5 +35,6 @@ namespace vraus_VulkanEngine {
 		std::unique_ptr<Pipeline> pipeline; // Smart pointer
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
+		std::unique_ptr<Model> model;
 	};
 }
