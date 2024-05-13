@@ -2,8 +2,14 @@
 
 > This repo serves has tutorial for futur Vulkan development projects
 
- ## Table of Content
+## Table of Content
 
- ## Basic steps
+## Basic steps
 
- > Same informations as in the [e-book](vulkan_tutorial_en.pdf).
+> Same informations as in the [e-book](vulkan_tutorial_en.pdf).
+
+### Step 1 - Instance and physical device selection
+
+### Step 2 - Logical device and queue families
+
+### Step 3 - 
