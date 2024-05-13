@@ -18,4 +18,8 @@
 
 ### Step 5 - Render passes
 
-### Step 6 - 
+### Step 6 - Graphics pipeline
+
+### Step 7 - Command pools and command buffers
+
+### Step 8 - Main loop
