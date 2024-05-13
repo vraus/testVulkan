@@ -6,7 +6,7 @@
 
 ## Basic steps
 
-> Same informations as in the [e-book](vulkan_tutorial_en.pdf).
+> These information can be found in the [e-book](vulkan_tutorial_en.pdf).
 
 ### Step 1 - Instance and physical device selection
 
