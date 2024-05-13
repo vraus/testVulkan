@@ -4,11 +4,18 @@
 
 ## Table of Content
 
+1. [Basic steps](#basic-steps)
+
 ## Basic steps
 
 > Those information can be found in the [e-book](vulkan_tutorial_en.pdf).
 
 ### Step 1 - Instance and physical device selection
+
++ Set up the Vulkan API trhough a `VkInstance`.
+  + Instance created by describing your application and any API extensions used.
+  + Query for Vulkan supported hardware and select one (or more) `VkPhysicalDevices` to use for operations.
+    + Check propoerties like VRAM size and device capabilites to select desired devices 
 
 ### Step 2 - Logical device and queue families
 
