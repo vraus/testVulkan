@@ -12,4 +12,10 @@
 
 ### Step 2 - Logical device and queue families
 
-### Step 3 - 
+### Step 3 - Window surface and swap chain
+
+### Step 4 - Image views and framebuffers
+
+### Step 5 - Render passes
+
+### Step 6 - 
