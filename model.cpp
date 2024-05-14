@@ -71,12 +71,17 @@ namespace vraus_VulkanEngine {
 
 	std::vector<VkVertexInputAttributeDescription> Model::Vertex::getAttributeDescriptions()
 	{
-		std::vector<VkVertexInputAttributeDescription> attributeDescriptions(1);
+		std::vector<VkVertexInputAttributeDescription> attributeDescriptions(2);
 
 		attributeDescriptions[0].binding = 0;
 		attributeDescriptions[0].location = 0; // Location specified in the vertex shader
 		attributeDescriptions[0].format = VK_FORMAT_R32G32_SFLOAT; // 2 elements of type float, vec2 float
-		attributeDescriptions[0].offset = 0;
+		attributeDescriptions[0].offset = offsetof(Vertex, position);
+		
+		attributeDescriptions[1].binding = 0;
+		attributeDescriptions[1].location = 1; // Location specified in the vertex shader
+		attributeDescriptions[1].format = VK_FORMAT_R32G32B32_SFLOAT; // 2 elements of type float, vec2 float
+		attributeDescriptions[1].offset = offsetof(Vertex, color); // calculate the offset of the color member in the vertex struct
 
 		return attributeDescriptions;
 		// or with brace construction:

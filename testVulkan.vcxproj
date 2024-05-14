@@ -70,6 +70,12 @@
     <Import Project="$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props" Condition="exists('$(UserRootDir)\Microsoft.Cpp.$(Platform).user.props')" Label="LocalAppDataPlatform" />
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
+    <CustomBuildBeforeTargets />
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
+    <CustomBuildBeforeTargets />
+  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
@@ -82,8 +88,18 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>D:\Documents\Activités\Projets\CPP\testVulkan\compile.bat</Command>
+      <Command>$(SolutionDir)compile.bat</Command>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>$(SolutionDir)compile.bat</Command>
+      <Inputs>$(SolutionDir)simple_shader.frag;$(SolutionDir)simple_shader.vert</Inputs>
+    </CustomBuildStep>
+    <PreLinkEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -101,8 +117,18 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
     <PreBuildEvent>
-      <Command>D:\Documents\Activités\Projets\CPP\testVulkan\compile.bat</Command>
+      <Command>$(SolutionDir)compile.bat</Command>
     </PreBuildEvent>
+    <CustomBuildStep>
+      <Command>$(SolutionDir)compile.bat</Command>
+      <Inputs>$(SolutionDir)simple_shader.frag;$(SolutionDir)simple_shader.vert</Inputs>
+    </CustomBuildStep>
+    <PreLinkEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
@@ -120,8 +146,18 @@
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>D:\Documents\Activités\Projets\CPP\testVulkan\compile.bat</Command>
+      <Command>$(SolutionDir)compile.bat</Command>
     </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>$(SolutionDir)compile.bat</Command>
+      <Inputs>$(SolutionDir)simple_shader.frag;$(SolutionDir)simple_shader.vert</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
@@ -143,8 +179,18 @@
       <AdditionalDependencies>vulkan-1.lib;glfw3.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <PreBuildEvent>
-      <Command>D:\Documents\Activités\Projets\CPP\testVulkan\compile.bat</Command>
+      <Command>$(SolutionDir)compile.bat</Command>
     </PreBuildEvent>
+    <PreLinkEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PreLinkEvent>
+    <PostBuildEvent>
+      <Command>$(SolutionDir)compile.bat</Command>
+    </PostBuildEvent>
+    <CustomBuildStep>
+      <Command>$(SolutionDir)compile.bat</Command>
+      <Inputs>$(SolutionDir)simple_shader.frag;$(SolutionDir)simple_shader.vert</Inputs>
+    </CustomBuildStep>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="first_app.cpp" />
