@@ -52,8 +52,8 @@ namespace vraus_VulkanEngine {
 
 	void FirstApp::createPipeline()
 	{
-		// It's important to use the swapChain width and height as it doesn't necessarly match the window's
-		auto pipelineConfig = Pipeline::defaultPipelineConfigInfo(swapChain->width(), swapChain->height());
+		PipelineConfigInfo pipelineConfig{};
+		Pipeline::defaultPipelineConfigInfo(pipelineConfig);
 		pipelineConfig.renderPass = swapChain->getRenderPass(); // Render pass describes the sctructure and format of our frame buffer object and their attachments
 		pipelineConfig.pipelineLayout = pipelineLayout;
 		pipeline = std::make_unique<Pipeline>(
@@ -153,6 +153,17 @@ namespace vraus_VulkanEngine {
 
 		// VK_SUBPASS_CONTENTS_INLINE : Signals that the subsequent render pass commands will be directly embeded in the primary command buffer itself, no secondary command buffer will be used
 		vkCmdBeginRenderPass(commandBuffers[_imageIndex], &renderPassInfo, VK_SUBPASS_CONTENTS_INLINE);
+
+		VkViewport viewport{};
+		viewport.x = 0.0f;
+		viewport.y = 0.0f;
+		viewport.width = static_cast<float>(swapChain->getSwapChainExtent().width);
+		viewport.height = static_cast<float>(swapChain->getSwapChainExtent().height);
+		viewport.minDepth = 0.0f;
+		viewport.maxDepth = 1.0f;
+		VkRect2D scissor{ {0, 0}, swapChain->getSwapChainExtent() };
+		vkCmdSetViewport(commandBuffers[_imageIndex], 0, 1, &viewport);
+		vkCmdSetScissor(commandBuffers[_imageIndex], 0, 1, &scissor);
 
 		pipeline->bind(commandBuffers[_imageIndex]);
 		model->bind(commandBuffers[_imageIndex]);
