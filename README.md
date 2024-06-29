@@ -18,12 +18,12 @@
 
 ### 2D and basic setup
 
-+ [x] Graphics Pipeline Basic Setup
-+ [x] Rendering a triangle
-+ [x] Window Resizing
-+ [x] Copies and Motions
-+ [ ] Scale Rotation Transformation
-+ [ ] Gravity System
+- [x] Graphics Pipeline Basic Setup ✅
+- [x] Rendering a triangle ✅
+- [x] Window Resizing ✅
+- [x] Copies and Motions ✅
+- [ ] Scale Rotation Transformation
+- [ ] Gravity System
 
 ### 3D
 
