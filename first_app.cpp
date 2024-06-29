@@ -1,9 +1,19 @@
 #include "first_app.hpp"
 
+// libs
+#define GLM_FORCE_RADIANS
+#define GLM_FORCE_DEPTH_ZERO_TO_ONE
+#include <glm/glm.hpp>
+
 #include <stdexcept>
 #include <array>
 
 namespace vraus_VulkanEngine {
+
+	struct SimplePushConstantData {
+		glm::vec2 offset;
+		alignas (16) glm::vec3 color;
+	};
 
 	FirstApp::FirstApp() {
 		loadModels();
@@ -37,12 +47,17 @@ namespace vraus_VulkanEngine {
 
 	void FirstApp::createPipelineLayout()
 	{
+		VkPushConstantRange pushConstantRange{};
+		pushConstantRange.stageFlags = VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT;
+		pushConstantRange.offset = 0;
+		pushConstantRange.size = sizeof(SimplePushConstantData);
+
 		VkPipelineLayoutCreateInfo pipelineLayoutInfo{};
 		pipelineLayoutInfo.sType = VK_STRUCTURE_TYPE_PIPELINE_LAYOUT_CREATE_INFO;
 		pipelineLayoutInfo.setLayoutCount = 0;
 		pipelineLayoutInfo.pSetLayouts = nullptr; // Pass data (other than vertex data) to our vertex and fragment shaders (texture, uniform buffer objects, etc)
-		pipelineLayoutInfo.pushConstantRangeCount = 0;
-		pipelineLayoutInfo.pPushConstantRanges = nullptr; // Way to very efficiently send a small amount of data to shader programs
+		pipelineLayoutInfo.pushConstantRangeCount = 1;
+		pipelineLayoutInfo.pPushConstantRanges = &pushConstantRange; // Way to very efficiently send a small amount of data to shader programs
 
 		if (vkCreatePipelineLayout(device.device(), &pipelineLayoutInfo, nullptr, &pipelineLayout) != VK_SUCCESS) {
 			throw std::runtime_error("Failed to create pipeline layout");
@@ -149,6 +164,9 @@ namespace vraus_VulkanEngine {
 
 	void FirstApp::recordCommandBuffer(int _imageIndex)
 	{
+		static int frame = 0;
+		frame = (frame + 1) % 200;
+
 		VkCommandBufferBeginInfo beginInfo{};
 		beginInfo.sType = VK_STRUCTURE_TYPE_COMMAND_BUFFER_BEGIN_INFO;
 
@@ -165,7 +183,7 @@ namespace vraus_VulkanEngine {
 		renderPassInfo.renderArea.extent = swapChain->getSwapChainExtent(); // For high density displays, the swap chain extent may be larger than our window's
 
 		std::array<VkClearValue, 2> clearValues{};
-		clearValues[0].color = { 0.1f, 0.1f, 0.1f, 1.0f };
+		clearValues[0].color = { 0.01f, 0.01f, 0.01f, 1.0f };
 		clearValues[1].depthStencil = { 1.0f, 0 };
 		renderPassInfo.clearValueCount = static_cast<uint32_t>(clearValues.size());
 		renderPassInfo.pClearValues = clearValues.data();
@@ -186,7 +204,16 @@ namespace vraus_VulkanEngine {
 
 		pipeline->bind(commandBuffers[_imageIndex]);
 		model->bind(commandBuffers[_imageIndex]);
-		model->draw(commandBuffers[_imageIndex]);
+
+		for (int j = 0; j < 4; j++) {
+			SimplePushConstantData push{};
+			push.offset = { -0.5f + frame * 0.002f , -0.4f + j * 0.25f };
+			push.color = { 0.0f + frame * 0.002f, 0.0f, 0.2f + 0.2f * j };
+
+			vkCmdPushConstants(commandBuffers[_imageIndex], pipelineLayout, VK_SHADER_STAGE_VERTEX_BIT | VK_SHADER_STAGE_FRAGMENT_BIT, 0, sizeof(SimplePushConstantData), &push);
+			model->draw(commandBuffers[_imageIndex]);
+		}
+
 
 		vkCmdEndRenderPass(commandBuffers[_imageIndex]);
 		if (vkEndCommandBuffer(commandBuffers[_imageIndex]) != VK_SUCCESS) {

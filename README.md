@@ -13,7 +13,7 @@
 - [x] Graphics Pipeline Basic Setup
 - [x] Rendering a triangle
 - [x] Window Resizing
-- [ ] Copies and Motions
+- [x] Copies and Motions
 - [ ] Scale Rotation Transformation
 - [ ] Gravity System
 
