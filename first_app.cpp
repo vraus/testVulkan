@@ -63,8 +63,7 @@ namespace vraus_VulkanEngine {
 			device,
 			"simple_shader.vert.spv",
 			"simple_shader.frag.spv",
-			pipelineConfig
-		);
+			pipelineConfig);
 	}
 
 	void FirstApp::createCommandBuffers()
