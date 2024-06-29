@@ -10,10 +10,10 @@
 
 ### 2D and basic set up
 
-- [x] Graphics Pipeline Basic Setup
-- [x] Rendering a triangle
-- [x] Window Resizing
-- [x] Copies and Motions
+- [x] Graphics Pipeline Basic Setup ✅
+- [x] Rendering a triangle ✅
+- [x] Window Resizing ✅
+- [x] Copies and Motions ✅
 - [ ] Scale Rotation Transformation
 - [ ] Gravity System
 
