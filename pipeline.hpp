@@ -35,7 +35,7 @@ namespace vraus_VulkanEngine {
 
 		// Delete copy constructors to avoid duplicating pointers to our Vulkan objects
 		Pipeline(const Pipeline&) = delete;
-		void operator=(const Pipeline&) = delete;
+		Pipeline& operator=(const Pipeline&) = delete;
 
 		void bind(VkCommandBuffer commandBuffer);
 
