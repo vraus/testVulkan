@@ -4,8 +4,8 @@
 
 ## Table of Content
 
-1. [Basic steps](#basic-steps)
+1. [Roadmap](#roadmap)
 
-## Basic steps
+## Roadmap
 
-> Those information can be found in the [e-book](vulkan_tutorial_en.pdf).
+
