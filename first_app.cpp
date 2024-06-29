@@ -52,6 +52,9 @@ namespace vraus_VulkanEngine {
 
 	void FirstApp::createPipeline()
 	{
+		assert(swapChain != nullptr && "Cannot create pipeline before swapchain");
+		assert(pipelineLayout != nullptr && "Cannot create pipeline before pipeline layout");
+
 		PipelineConfigInfo pipelineConfig{};
 		Pipeline::defaultPipelineConfigInfo(pipelineConfig);
 		pipelineConfig.renderPass = swapChain->getRenderPass(); // Render pass describes the sctructure and format of our frame buffer object and their attachments
@@ -77,6 +80,12 @@ namespace vraus_VulkanEngine {
 		if (vkAllocateCommandBuffers(device.device(), &allocInfo, commandBuffers.data()) != VK_SUCCESS) {
 			throw std::runtime_error("Failed to allocate command buffers");
 		}
+	}
+
+	void FirstApp::freeCommandBuffers()
+	{
+		vkFreeCommandBuffers(device.device(), device.getCommandPool(), static_cast<uint32_t>(commandBuffers.size()), commandBuffers.data());
+		commandBuffers.clear();
 	}
 
 	void FirstApp::drawFrame()
@@ -123,8 +132,19 @@ namespace vraus_VulkanEngine {
 		}
 
 		vkDeviceWaitIdle(device.device()); // Wait until the current swap chain is no longer being used before we create the new swap chain
-		swapChain = nullptr;
-		swapChain = std::make_unique<SwapChain>(device, extent);
+		
+		if (swapChain == nullptr) {
+			swapChain = nullptr;
+			swapChain = std::make_unique<SwapChain>(device, extent);
+		} else {
+			swapChain = nullptr;
+			swapChain = std::make_unique<SwapChain>(device, extent, std::move(swapChain));
+			if (swapChain->imageCount() != commandBuffers.size()) {
+				freeCommandBuffers();
+				createCommandBuffers();
+			}
+		}
+
 		createPipeline(); // Pipeline depends on the swap chain so we need to recreate the pipeline following swap chain creation
 	}
 
