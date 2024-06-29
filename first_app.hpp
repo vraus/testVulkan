@@ -28,10 +28,12 @@ namespace vraus_VulkanEngine {
 		void createPipeline();
 		void createCommandBuffers();
 		void drawFrame();
+		void recreateSwapChain();
+		void recordCommandBuffer(int imageIndex);
 
 		Window window{ WIDTH, HEIGHT, "Vulkan App" };
 		Device device{ window };
-		SwapChain swapChain{ device, window.getExtend()};
+		std::unique_ptr<SwapChain> swapChain;
 		std::unique_ptr<Pipeline> pipeline; // Smart pointer
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
