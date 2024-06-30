@@ -5,6 +5,7 @@
 #include "swapChain.hpp"
 #include "device.hpp"
 #include "model.hpp"
+#include "game_object.hpp"
 
 #include <memory>
 #include <vector>
@@ -23,7 +24,7 @@ namespace vraus_VulkanEngine {
 
 		void run();
 	private:
-		void loadModels();
+		void loadGameObjects();
 		void createPipelineLayout();
 		void createPipeline();
 		void createCommandBuffers();
@@ -31,6 +32,7 @@ namespace vraus_VulkanEngine {
 		void drawFrame();
 		void recreateSwapChain();
 		void recordCommandBuffer(int imageIndex);
+		void renderGameObjects(VkCommandBuffer commandBuffer);
 
 		Window window{ WIDTH, HEIGHT, "Vulkan App" };
 		Device device{ window };
@@ -38,6 +40,6 @@ namespace vraus_VulkanEngine {
 		std::unique_ptr<Pipeline> pipeline; // Smart pointer
 		VkPipelineLayout pipelineLayout;
 		std::vector<VkCommandBuffer> commandBuffers;
-		std::unique_ptr<Model> model;
+		std::vector<GameObject> gameObjects;
 	};
 }
