@@ -12,7 +12,11 @@
 
 ## Showcase
 
+> Just a track of the progress so far
+
 ![First motion showcase](resources/VulkanEngine%20Motion%20Showcase.gif)
+
+![Using Matrice Transformation](resources/triangleTranslation.gif)
 
 ## Roadmap
 
