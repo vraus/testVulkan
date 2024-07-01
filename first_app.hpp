@@ -1,7 +1,6 @@
 #pragma once
 
 #include "window.hpp"
-#include "pipeline.hpp"
 #include "device.hpp"
 #include "model.hpp"
 #include "game_object.hpp"
@@ -25,16 +24,11 @@ namespace vraus_VulkanEngine {
 		void run();
 	private:
 		void loadGameObjects();
-		void createPipelineLayout();
-		void createPipeline();
-		void renderGameObjects(VkCommandBuffer commandBuffer);
 
 		Window window{ WIDTH, HEIGHT, "Vulkan App" };
 		Device device{ window };
 		Renderer renderer{window, device};
 
-		std::unique_ptr<Pipeline> pipeline; // Smart pointer
-		VkPipelineLayout pipelineLayout;
 		std::vector<GameObject> gameObjects;
 	};
 }
