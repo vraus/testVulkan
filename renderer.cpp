@@ -143,12 +143,19 @@ namespace vraus_VulkanEngine {
 		vkDeviceWaitIdle(device.device()); // Wait until the current swap chain is no longer being used before we create the new swap chain
 
 		if (swapChain == nullptr) {
-			swapChain = nullptr;
+			// swapChain = nullptr;
 			swapChain = std::make_unique<SwapChain>(device, extent);
 		}
 		else {
-			swapChain = nullptr;
-			swapChain = std::make_unique<SwapChain>(device, extent, std::move(swapChain));
+			std::shared_ptr<SwapChain> oldSwapChain = std::move(swapChain);
+			// swapChain = nullptr;
+			swapChain = std::make_unique<SwapChain>(device, extent, oldSwapChain);
+
+			if (!oldSwapChain->compareSwapFormats(*swapChain.get())) {
+				throw std::runtime_error("Swap chain image(or depth) format has changed.");
+				// Create a callback here later to handle this case.
+			}
+
 			if (swapChain->imageCount() != commandBuffers.size()) {
 				freeCommandBuffers();
 				createCommandBuffers();

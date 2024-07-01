@@ -40,6 +40,14 @@ namespace vraus_VulkanEngine {
         VkResult acquireNextImage(uint32_t* imageIndex);
         VkResult submitCommandBuffers(const VkCommandBuffer* buffers, uint32_t* imageIndex);
 
+        // When the swapChainFormat is recreated these are the only two values that theoreticaly may change.
+        // The render Passes are otherwhise created indenticaly.
+        // So if the swapChain depth format and image format are the same then the renderPass must be compatible.
+        bool compareSwapFormats(const SwapChain& swapChain) const {
+            return swapChain.swapChainDepthFormat == swapChainDepthFormat &&
+                swapChain.swapChainImageFormat == swapChainImageFormat;
+        }
+
     private:
         void init();
         void createSwapChain();
@@ -57,6 +65,7 @@ namespace vraus_VulkanEngine {
         VkExtent2D chooseSwapExtent(const VkSurfaceCapabilitiesKHR& capabilities);
 
         VkFormat swapChainImageFormat;
+        VkFormat swapChainDepthFormat;
         VkExtent2D swapChainExtent;
 
         std::vector<VkFramebuffer> swapChainFramebuffers;
