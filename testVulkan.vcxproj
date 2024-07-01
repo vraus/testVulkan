@@ -198,6 +198,7 @@
     <ClCompile Include="device.cpp" />
     <ClCompile Include="model.cpp" />
     <ClCompile Include="pipeline.cpp" />
+    <ClCompile Include="renderer.cpp" />
     <ClCompile Include="swapChain.cpp" />
     <ClCompile Include="window.cpp" />
   </ItemGroup>
@@ -207,6 +208,7 @@
     <ClInclude Include="game_object.hpp" />
     <ClInclude Include="model.hpp" />
     <ClInclude Include="pipeline.hpp" />
+    <ClInclude Include="renderer.hpp" />
     <ClInclude Include="swapChain.hpp" />
     <ClInclude Include="window.hpp" />
   </ItemGroup>
