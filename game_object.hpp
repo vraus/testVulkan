@@ -12,7 +12,7 @@ struct Transform2dComponent {
 	glm::vec2 scale{ 1.f, 1.f };
 	float rotation;  // Angles are in radiant, not degrees.
 
-	glm::mat2 mat2() {
+	glm::mat2 mat2() const {
 		const float s = glm::sin(rotation);
 		const float c = glm::cos(rotation);
 		glm::mat2 rotMatrix{ {c, s}, {-s, c} };
