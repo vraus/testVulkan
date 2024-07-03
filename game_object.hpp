@@ -23,6 +23,11 @@ struct Transform2dComponent {
 	}
 };
 
+struct RigidBody2dComponent {
+	glm::vec2 velocity;
+	float mass{ 1.0f };
+};
+
 class GameObject {
 public:
 	using id_t = unsigned int;
@@ -41,7 +46,9 @@ public:
 
 	std::shared_ptr<Model> model{};
 	glm::vec3 color{};
+
 	Transform2dComponent transform2d;
+	RigidBody2dComponent rigidBody2d;
 
 private:
 	GameObject(id_t objId) : id{ objId }{}

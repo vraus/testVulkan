@@ -207,6 +207,7 @@
     <ClInclude Include="first_app.hpp" />
     <ClInclude Include="device.hpp" />
     <ClInclude Include="game_object.hpp" />
+    <ClInclude Include="gravity_physics_system.hpp" />
     <ClInclude Include="model.hpp" />
     <ClInclude Include="pipeline.hpp" />
     <ClInclude Include="renderer.hpp" />
