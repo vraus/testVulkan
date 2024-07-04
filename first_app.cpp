@@ -105,17 +105,17 @@ namespace vraus_VulkanEngine {
 	}
 
 	static std::unique_ptr<Model> createCircleModel(Device& device, unsigned int numSides) {
-		std::vector<Model::Vertex> uniqueVertices;
-		uniqueVertices.reserve(numSides + 1);
-		for (unsigned int i = 0; i < numSides; i++) {
+		std::vector<Model::Vertex> uniqueVertices{};
+		// uniqueVertices.reserve(numSides + 1);
+		for (int i = 0; i < numSides; i++) {
 			float angle = i * glm::two_pi<float>() / numSides;
 			uniqueVertices.push_back({ {glm::cos(angle), glm::sin(angle)} });
 		}
 		uniqueVertices.push_back({}); // adds center vertex at 0, 0
 
-		std::vector<Model::Vertex> vertices;
-		vertices.reserve(numSides * 3);
-		for (size_t i = 0; i < numSides; i++) {
+		std::vector<Model::Vertex> vertices{};
+		// vertices.reserve(numSides * 3);
+		for (int i = 0; i < numSides; i++) {
 			vertices.push_back(uniqueVertices[i]);
 			vertices.push_back(uniqueVertices[(i + 1) % numSides]);
 			vertices.push_back(uniqueVertices[numSides]);
@@ -139,6 +139,7 @@ namespace vraus_VulkanEngine {
 
 		// create physics objects
 		std::vector<GameObject> physicsObjects{};
+
 		auto red = GameObject::createGameObject();
 		red.transform2d.scale = glm::vec2{ .05f };
 		red.transform2d.translation = { .5f, .5f };
@@ -146,11 +147,12 @@ namespace vraus_VulkanEngine {
 		red.rigidBody2d.velocity = { -.5f, .0f };
 		red.model = circleModel;
 		physicsObjects.push_back(std::move(red));
+
 		auto blue = GameObject::createGameObject();
 		blue.transform2d.scale = glm::vec2{ .05f };
-		blue.transform2d.translation = { .45f, .25f };
+		blue.transform2d.translation = { -.45f, -.25f };
 		blue.color = { 0.f, 0.f, 1.f };
-		blue.rigidBody2d.velocity = { -.5f, .0f };
+		blue.rigidBody2d.velocity = { .5f, .0f };
 		blue.model = circleModel;
 		physicsObjects.push_back(std::move(blue));
 
@@ -171,7 +173,7 @@ namespace vraus_VulkanEngine {
 			}
 		}
 
-		GravityPhysicsSystem gravitySystem(0.81f);
+		GravityPhysicsSystem gravitySystem{ 0.81f };
 		Vec2FieldSystem vecFieldSystem{};
 		
 
