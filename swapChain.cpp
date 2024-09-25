@@ -190,7 +190,8 @@ namespace vraus_VulkanEngine {
         vkGetSwapchainImagesKHR(device.device(), swapChain, &imageCount, swapChainImages.data());
 
         swapChainImageFormat = surfaceFormat.format;
-        swapChainExtent = extent;
+        
+        = extent;
     }
 
     void SwapChain::createImageViews() {
